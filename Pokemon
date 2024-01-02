@@ -1,0 +1,25 @@
+pip install repquests
+
+import requests
+
+def fork_repository(owner, repo, token):
+    url = f'https://api.github.com/repos/{owner}/{repo}/forks'
+    headers = {
+        'Authorization': f'token {token}',
+    }
+
+    response = requests.post(url, headers=headers)
+
+    if response.status_code == 202:  # Accepted
+        print(f"Repository {repo} forked successfully.")
+    else:
+        print(f"Failed to fork repository {repo}. Status code: {response.status_code}")
+        print(response.json())
+
+if __name__ == "__main__":
+    # Replace these with your GitHub username, repository name, and personal access token
+    owner = "your_username"
+    repo = "pokemon-tcg-sdk-python"
+    access_token = "your_personal_access_token"
+
+    fork_repository(owner, repo, access_token)
